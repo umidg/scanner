@@ -7,10 +7,12 @@ https://warlord9808.github.io/scanner/
 npm i
 
 ## Run
-npm run start --to run locally
+npm run start
+To run locally
 
 ## Build
-npm run build --to build and deploy
+npm run build 
+To build
 
 ## Samples
 Samples are present in Samples directory.
