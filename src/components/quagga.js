@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Quagga from "quagga";
 import { createWorker } from "tesseract.js";
 import mydata from "data-url-canvas";
+
 class Scanner extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +24,15 @@ class Scanner extends Component {
 
   getCanv = async (img) => {
     let barcode;
-    console.log(mydata.fromCanvas(img.current.current), "url");
+    // console.log(mydata.fromCanvas(img.current.current), "url");
     Quagga.decodeSingle(
       {
         decoder: {
           readers: ["code_128_reader", "ean_reader"], // List of active readers
+        },
+
+        locator: {
+          halfSample: true,
         },
         locate: true, // try to locate the barcode in the image
         src: mydata.fromCanvas(img.current.current), // or 'data:image/jpg;base64,' + data
@@ -37,7 +42,7 @@ class Scanner extends Component {
           barcode = callme.codeResult.code;
           set();
         } else {
-          barcode = "Couldn't find barcode";
+          barcode = "Couldn't find barcode. Image not clear enough.";
           set();
         }
       }
@@ -47,14 +52,14 @@ class Scanner extends Component {
         imgUrl: mydata.fromCanvas(img.current.current),
         barcode: barcode,
       });
-      console.log(this.state, "callme");
+      // console.log(this.state, "callme");
     };
 
     this.doOCR(mydata.fromCanvas(img.current.current));
   };
 
   doOCR = async (img) => {
-    console.log("ready");
+    // console.log("ready");
     this.setState({ text: "Please wait" });
     const worker = createWorker({
       logger: (m) => console.log(m),
@@ -65,13 +70,16 @@ class Scanner extends Component {
     const {
       data: { text },
     } = await worker.recognize(img);
-    console.log(text, "text");
+    // console.log(text, "text");
     if (text != "") this.setState({ text: text });
-    else this.setState({ text: "Couldn't find any text" });
+    else
+      this.setState({
+        text: "Couldn't find any text. Image not clear enough.",
+      });
     await worker.terminate();
   };
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <>
         <div className="container">

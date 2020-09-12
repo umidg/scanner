@@ -72,7 +72,7 @@ const ImageUploader = (props) => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
-    console.log(previewCanvasRef, "preview");
+    // console.log(previewCanvasRef, "preview");
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
@@ -98,7 +98,7 @@ const ImageUploader = (props) => {
       crop.width,
       crop.height
     );
-    console.log(previewCanvasRef, "ploader");
+    // console.log(previewCanvasRef, "ploader");
   }, [completedCrop]);
 
   return (
