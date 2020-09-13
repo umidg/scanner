@@ -25,36 +25,12 @@ const getResizedCanvas = (canvas, newWidth, newHeight) => {
   return tmpCanvas;
 };
 
-const generateDownload = (previewCanvas, crop) => {
-  if (!crop || !previewCanvas) {
-    return;
-  }
-
-  const canvas = getResizedCanvas(previewCanvas, crop.width, crop.height);
-
-  canvas.toBlob(
-    (blob) => {
-      const previewUrl = window.URL.createObjectURL(blob);
-
-      const anchor = document.createElement("a");
-      anchor.download = "cropPreview.png";
-      anchor.href = URL.createObjectURL(blob);
-      anchor.click();
-
-      window.URL.revokeObjectURL(previewUrl);
-    },
-    "image/png",
-    1
-  );
-};
-
 const ImageUploader = (props) => {
   const [upImg, setUpImg] = useState();
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 9 });
   const [completedCrop, setCompletedCrop] = useState(null);
-  const [cropped, setCropped] = useState(null);
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -72,7 +48,7 @@ const ImageUploader = (props) => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
-    // console.log(previewCanvasRef, "preview");
+    console.log(previewCanvasRef, "preview");
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
@@ -98,7 +74,7 @@ const ImageUploader = (props) => {
       crop.width,
       crop.height
     );
-    // console.log(previewCanvasRef, "ploader");
+    console.log(previewCanvasRef, "ploader");
   }, [completedCrop]);
 
   return (

@@ -1,3 +1,4 @@
+import { Quagga } from "quagga";
 import React, { useEffect, useRef, useState } from "react";
 import ImageUploader from "./imageuploader";
 import QuaggaComponent from "./quagga";
@@ -12,7 +13,7 @@ const Conatiner = () => {
   };
 
   useEffect(() => {
-    // console.log("changed");
+    console.log("changed");
   }, [uploaded, img]);
 
   return (

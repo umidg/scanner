@@ -27,12 +27,21 @@ class Scanner extends Component {
     // console.log(mydata.fromCanvas(img.current.current), "url");
     Quagga.decodeSingle(
       {
-        decoder: {
-          readers: ["code_128_reader", "ean_reader"], // List of active readers
-        },
-
         locator: {
           halfSample: true,
+          patchSize: "small",
+        },
+        decoder: {
+          readers: [
+            "code_128_reader",
+            "code_39_reader",
+            "code_93_reader",
+            "i2of5_reader",
+            "code_39_vin_reader",
+            "ean_reader",
+            "upc_reader",
+            "upc_e_reader",
+          ], // List of active readers
         },
         locate: true, // try to locate the barcode in the image
         src: mydata.fromCanvas(img.current.current), // or 'data:image/jpg;base64,' + data
