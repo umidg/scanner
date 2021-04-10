@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Scans and reads Barcode and text from an uploaded image.
+
 ## Available Scripts
 
 In the project directory, you can run:
